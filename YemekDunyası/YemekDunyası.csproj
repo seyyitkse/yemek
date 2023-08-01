@@ -33,8 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,16 +55,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FrmKullaniciGiris.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FrmKullaniciGiris.Designer.cs">
+      <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSiparis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSiparis.Designer.cs">
+      <DependentUpon>FrmSiparis.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="TBL_KATEGORI.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_MUSTERI.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_RESTORAN.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_SIPARIS.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_URUN.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UrunModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UrunModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UrunModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UrunModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UrunModel.edmx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FrmKullaniciGiris.resx">
+      <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +111,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -75,9 +121,31 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EntityDeploy Include="UrunModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UrunModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="UrunModel.edmx.diagram">
+      <DependentUpon>UrunModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UrunModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UrunModel.edmx</DependentUpon>
+      <LastGenOutput>UrunModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="UrunModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UrunModel.edmx</DependentUpon>
+      <LastGenOutput>UrunModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

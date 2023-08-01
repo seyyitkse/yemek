@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_KATEGORI">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAD" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TBL_MUSTERI">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciSifre" Type="varchar" MaxLength="10" />
+          <Property Name="KullaniciAD" Type="varchar" MaxLength="30" />
+          <Property Name="KullaniciSOYAD" Type="varchar" MaxLength="30" />
+          <Property Name="KullaniciNick" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TBL_RESTORAN">
+          <Key>
+            <PropertyRef Name="RestoranID" />
+          </Key>
+          <Property Name="RestoranID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestoranAD" Type="varchar" MaxLength="30" />
+          <Property Name="RestoranPUAN" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RestoranKATEGORI" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_SIPARIS">
+          <Key>
+            <PropertyRef Name="SiparisID" />
+          </Key>
+          <Property Name="SiparisID" Type="int" Nullable="false" />
+          <Property Name="SiparisRestoranID" Type="int" />
+          <Property Name="SiparisTarihi" Type="datetime" />
+          <Property Name="SiparisTutar" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SiparisUrunID" Type="int" />
+          <Property Name="SiparisKullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_URUN">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunFiyat" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="UrunStok" Type="int" />
+          <Property Name="UrunKategori" Type="int" />
+        </EntityType>
+        <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
+          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
+          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KATEGORI">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="TBL_RESTORAN">
+              <PropertyRef Name="RestoranKATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisKullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_RESTORAN">
+          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="0..1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RESTORAN">
+              <PropertyRef Name="RestoranID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisRestoranID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_URUN1">
+          <End Role="TBL_URUN" Type="Self.TBL_URUN" Multiplicity="0..1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_URUN">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisUrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_URUN_TBL_KATEGORI">
+          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
+          <End Role="TBL_URUN" Type="Self.TBL_URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KATEGORI">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="TBL_URUN">
+              <PropertyRef Name="UrunKategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelUrunStoreContainer">
+          <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_RESTORAN_TBL_KATEGORI" Association="Self.FK_TBL_RESTORAN_TBL_KATEGORI">
+            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
+            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_RESTORAN" Association="Self.FK_TBL_SIPARIS_TBL_RESTORAN">
+            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_URUN1" Association="Self.FK_TBL_SIPARIS_TBL_URUN1">
+            <End Role="TBL_URUN" EntitySet="TBL_URUN" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_URUN_TBL_KATEGORI" Association="Self.FK_TBL_URUN_TBL_KATEGORI">
+            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
+            <End Role="TBL_URUN" EntitySet="TBL_URUN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelUrun" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_KATEGORI">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_RESTORAN_TBL_KATEGORI" FromRole="TBL_KATEGORI" ToRole="TBL_RESTORAN" />
+          <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_KATEGORI" ToRole="TBL_URUN" />
+        </EntityType>
+        <EntityType Name="TBL_MUSTERI">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciSOYAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciNick" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_MUSTERI" ToRole="TBL_SIPARIS" />
+        </EntityType>
+        <EntityType Name="TBL_RESTORAN">
+          <Key>
+            <PropertyRef Name="RestoranID" />
+          </Key>
+          <Property Name="RestoranID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestoranAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="RestoranPUAN" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RestoranKATEGORI" Type="Int32" />
+          <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_RESTORAN_TBL_KATEGORI" FromRole="TBL_RESTORAN" ToRole="TBL_KATEGORI" />
+          <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_RESTORAN" ToRole="TBL_SIPARIS" />
+        </EntityType>
+        <EntityType Name="TBL_SIPARIS">
+          <Key>
+            <PropertyRef Name="SiparisID" />
+          </Key>
+          <Property Name="SiparisID" Type="Int32" Nullable="false" />
+          <Property Name="SiparisRestoranID" Type="Int32" />
+          <Property Name="SiparisTarihi" Type="DateTime" Precision="3" />
+          <Property Name="SiparisTutar" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SiparisUrunID" Type="Int32" />
+          <Property Name="SiparisKullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="TBL_MUSTERI" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_SIPARIS" ToRole="TBL_MUSTERI" />
+          <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_SIPARIS" ToRole="TBL_RESTORAN" />
+          <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_SIPARIS" ToRole="TBL_URUN" />
+        </EntityType>
+        <EntityType Name="TBL_URUN">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunFiyat" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UrunStok" Type="Int32" />
+          <Property Name="UrunKategori" Type="Int32" />
+          <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_URUN" ToRole="TBL_KATEGORI" />
+          <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_URUN" ToRole="TBL_SIPARIS" />
+        </EntityType>
+        <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
+          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
+          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KATEGORI">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="TBL_RESTORAN">
+              <PropertyRef Name="RestoranKATEGORI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_URUN_TBL_KATEGORI">
+          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
+          <End Role="TBL_URUN" Type="Self.TBL_URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KATEGORI">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="TBL_URUN">
+              <PropertyRef Name="UrunKategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisKullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_RESTORAN">
+          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="0..1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RESTORAN">
+              <PropertyRef Name="RestoranID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisRestoranID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_URUN1">
+          <End Role="TBL_URUN" Type="Self.TBL_URUN" Multiplicity="0..1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_URUN">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisUrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbUrunEntity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" />
+          <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" />
+          <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" />
+          <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" />
+          <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" />
+          <AssociationSet Name="FK_TBL_RESTORAN_TBL_KATEGORI" Association="Self.FK_TBL_RESTORAN_TBL_KATEGORI">
+            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
+            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_URUN_TBL_KATEGORI" Association="Self.FK_TBL_URUN_TBL_KATEGORI">
+            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
+            <End Role="TBL_URUN" EntitySet="TBL_URUN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_RESTORAN" Association="Self.FK_TBL_SIPARIS_TBL_RESTORAN">
+            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_URUN1" Association="Self.FK_TBL_SIPARIS_TBL_URUN1">
+            <End Role="TBL_URUN" EntitySet="TBL_URUN" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelUrunStoreContainer" CdmEntityContainer="DbUrunEntity">
+          <EntitySetMapping Name="TBL_KATEGORI">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_KATEGORI">
+              <MappingFragment StoreEntitySet="TBL_KATEGORI">
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="KategoriAD" ColumnName="KategoriAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_MUSTERI">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_MUSTERI">
+              <MappingFragment StoreEntitySet="TBL_MUSTERI">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+                <ScalarProperty Name="KullaniciAD" ColumnName="KullaniciAD" />
+                <ScalarProperty Name="KullaniciSOYAD" ColumnName="KullaniciSOYAD" />
+                <ScalarProperty Name="KullaniciNick" ColumnName="KullaniciNick" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RESTORAN">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_RESTORAN">
+              <MappingFragment StoreEntitySet="TBL_RESTORAN">
+                <ScalarProperty Name="RestoranID" ColumnName="RestoranID" />
+                <ScalarProperty Name="RestoranAD" ColumnName="RestoranAD" />
+                <ScalarProperty Name="RestoranPUAN" ColumnName="RestoranPUAN" />
+                <ScalarProperty Name="RestoranKATEGORI" ColumnName="RestoranKATEGORI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SIPARIS">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_SIPARIS">
+              <MappingFragment StoreEntitySet="TBL_SIPARIS">
+                <ScalarProperty Name="SiparisID" ColumnName="SiparisID" />
+                <ScalarProperty Name="SiparisRestoranID" ColumnName="SiparisRestoranID" />
+                <ScalarProperty Name="SiparisTarihi" ColumnName="SiparisTarihi" />
+                <ScalarProperty Name="SiparisTutar" ColumnName="SiparisTutar" />
+                <ScalarProperty Name="SiparisUrunID" ColumnName="SiparisUrunID" />
+                <ScalarProperty Name="SiparisKullaniciID" ColumnName="SiparisKullaniciID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_URUN">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_URUN">
+              <MappingFragment StoreEntitySet="TBL_URUN">
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
+                <ScalarProperty Name="UrunKategori" ColumnName="UrunKategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

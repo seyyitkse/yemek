@@ -115,7 +115,10 @@
             this.BtnGiris.TabIndex = 8;
             this.BtnGiris.Text = "Giriş Yapın";
             this.BtnGiris.UseVisualStyleBackColor = true;
+<<<<<<< HEAD
             this.BtnGiris.Click += new System.EventHandler(this.BtnGiris_Click);
+=======
+>>>>>>> e436e9c042b6e37e29abcf227c870e998f3dfc4e
             // 
             // label4
             // 

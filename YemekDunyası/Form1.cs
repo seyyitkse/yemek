@@ -17,8 +17,11 @@ namespace YemekDunyası
             InitializeComponent();
         }
 
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> e436e9c042b6e37e29abcf227c870e998f3dfc4e
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
@@ -33,10 +36,13 @@ namespace YemekDunyası
             }
 
         }
+<<<<<<< HEAD
 
         private void BtnGiris_Click(object sender, EventArgs e)
         {
 
         }
+=======
+>>>>>>> e436e9c042b6e37e29abcf227c870e998f3dfc4e
     }
 }

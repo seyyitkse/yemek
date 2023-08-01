@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_KATEGORI">
           <Key>
             <PropertyRef Name="KategoriID" />
@@ -41,6 +41,7 @@
           <Property Name="SiparisTutar" Type="decimal" Precision="18" Scale="0" />
           <Property Name="SiparisUrunID" Type="int" />
           <Property Name="SiparisKullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparisDurum" Type="bit" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -138,8 +139,7 @@
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ModelUrun" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -187,6 +187,7 @@
           <NavigationProperty Name="TBL_MUSTERI" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_SIPARIS" ToRole="TBL_MUSTERI" />
           <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_SIPARIS" ToRole="TBL_RESTORAN" />
           <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_SIPARIS" ToRole="TBL_URUN" />
+          <Property Name="SiparisDurum" Type="Boolean" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -324,6 +325,7 @@
           <EntitySetMapping Name="TBL_SIPARIS">
             <EntityTypeMapping TypeName="ModelUrun.TBL_SIPARIS">
               <MappingFragment StoreEntitySet="TBL_SIPARIS">
+                <ScalarProperty Name="SiparisDurum" ColumnName="SiparisDurum" />
                 <ScalarProperty Name="SiparisID" ColumnName="SiparisID" />
                 <ScalarProperty Name="SiparisRestoranID" ColumnName="SiparisRestoranID" />
                 <ScalarProperty Name="SiparisTarihi" ColumnName="SiparisTarihi" />

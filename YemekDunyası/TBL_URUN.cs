@@ -24,6 +24,8 @@ namespace YemekDunyası
         public Nullable<decimal> UrunFiyat { get; set; }
         public Nullable<int> UrunStok { get; set; }
         public Nullable<int> UrunKategori { get; set; }
+        public string UrunAD { get; set; }
+        public string UrunResim { get; set; }
     
         public virtual TBL_KATEGORI TBL_KATEGORI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

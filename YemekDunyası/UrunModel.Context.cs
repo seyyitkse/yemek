@@ -12,6 +12,8 @@ namespace YemekDunyası
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DbUrunEntity : DbContext
     {
@@ -30,5 +32,11 @@ namespace YemekDunyası
         public virtual DbSet<TBL_RESTORAN> TBL_RESTORAN { get; set; }
         public virtual DbSet<TBL_SIPARIS> TBL_SIPARIS { get; set; }
         public virtual DbSet<TBL_URUN> TBL_URUN { get; set; }
+        public virtual DbSet<TBL_ADMİN> TBL_ADMİN { get; set; }
+    
+        public virtual ObjectResult<string> UrunAdCek()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UrunAdCek");
+        }
     }
 }

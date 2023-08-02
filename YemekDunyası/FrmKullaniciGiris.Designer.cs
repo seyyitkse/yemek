@@ -46,6 +46,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Enabled = false;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(29, 34);
             this.pictureBox1.Name = "pictureBox1";
@@ -57,6 +58,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Comic Sans MS", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.Color.DarkRed;
             this.label1.Location = new System.Drawing.Point(131, 64);
@@ -84,6 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Enabled = false;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.Location = new System.Drawing.Point(241, 138);
             this.label3.Name = "label3";
@@ -131,6 +134,7 @@
             // LinkKayıt
             // 
             this.LinkKayıt.AutoSize = true;
+            this.LinkKayıt.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LinkKayıt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.LinkKayıt.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.LinkKayıt.Location = new System.Drawing.Point(281, 316);
@@ -139,6 +143,7 @@
             this.LinkKayıt.TabIndex = 10;
             this.LinkKayıt.TabStop = true;
             this.LinkKayıt.Text = "buradan";
+            this.LinkKayıt.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkKayıt_LinkClicked);
             // 
             // pictureBox2
             // 

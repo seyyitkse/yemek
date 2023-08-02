@@ -20,6 +20,8 @@ namespace YemekDunyası
         public Nullable<decimal> SiparisTutar { get; set; }
         public Nullable<int> SiparisUrunID { get; set; }
         public int SiparisKullaniciID { get; set; }
+        public Nullable<bool> SiparisDurum { get; set; }
+        public string SiparisBilgi { get; set; }
     
         public virtual TBL_MUSTERI TBL_MUSTERI { get; set; }
         public virtual TBL_RESTORAN TBL_RESTORAN { get; set; }

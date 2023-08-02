@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace YemekDunyası
 {
-    public partial class FrmKayit : Form
+    public partial class FrmKullaniciKayit : Form
     {
-        public FrmKayit()
+        public FrmKullaniciKayit()
         {
             InitializeComponent();
         }
@@ -65,6 +65,12 @@ namespace YemekDunyası
                     this.Hide();
                 }
             }
+        }
+
+        private void BtnAnaSayfa_Click(object sender, EventArgs e)
+        {
+            kullaniciGeriFrm.Show();
+            this.Hide();
         }
     }
 }

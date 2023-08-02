@@ -58,5 +58,12 @@ namespace YemekDunyası
             }
             
         }
+
+        private void LinkKayıt_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmKullaniciKayit musteriKayit= new FrmKullaniciKayit();
+            musteriKayit.Show();
+            this.Hide();
+        }
     }
 }

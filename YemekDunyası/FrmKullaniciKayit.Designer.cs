@@ -1,6 +1,6 @@
 ﻿namespace YemekDunyası
 {
-    partial class FrmKayit
+    partial class FrmKullaniciKayit
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmKayit));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmKullaniciKayit));
             this.BtnKayit = new System.Windows.Forms.Button();
             this.TxtSoyad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -133,9 +133,9 @@
             this.label4.ForeColor = System.Drawing.Color.DarkRed;
             this.label4.Location = new System.Drawing.Point(144, 83);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(313, 40);
+            this.label4.Size = new System.Drawing.Size(309, 40);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Kullanıcı Kayıt Ekranı";
+            this.label4.Text = "Müşteri Kayıt Ekranı";
             // 
             // pictureBox1
             // 
@@ -169,6 +169,7 @@
             this.BtnAnaSayfa.TabIndex = 21;
             this.BtnAnaSayfa.Text = "Ana Sayfaya Dön";
             this.BtnAnaSayfa.UseVisualStyleBackColor = false;
+            this.BtnAnaSayfa.Click += new System.EventHandler(this.BtnAnaSayfa_Click);
             // 
             // pictureBox3
             // 
@@ -205,6 +206,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmKayit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmKayit";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

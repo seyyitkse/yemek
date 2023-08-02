@@ -16,7 +16,7 @@ namespace YemekDunyası
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmKullaniciGiris());
+            Application.Run(new FrmAnaGiris());
         }
     }
 }

@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TBL_ADMİN">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminAD" Type="varchar" MaxLength="30" />
+          <Property Name="AdminSifre" Type="varchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="TBL_KATEGORI">
           <Key>
             <PropertyRef Name="KategoriID" />
@@ -42,6 +52,7 @@
           <Property Name="SiparisUrunID" Type="int" />
           <Property Name="SiparisKullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiparisDurum" Type="bit" />
+          <Property Name="SiparisBilgi" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -51,6 +62,8 @@
           <Property Name="UrunFiyat" Type="decimal" Precision="18" Scale="0" />
           <Property Name="UrunStok" Type="int" />
           <Property Name="UrunKategori" Type="int" />
+          <Property Name="UrunAD" Type="varchar" MaxLength="20" />
+          <Property Name="UrunResim" Type="varchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
           <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
@@ -112,12 +125,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="UrunAdCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ModelUrunStoreContainer">
           <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ADMİN" EntityType="Self.TBL_ADMİN" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TBL_ADMİN].[AdminID] AS [AdminID], 
+    [TBL_ADMİN].[AdminAD] AS [AdminAD], 
+    [TBL_ADMİN].[AdminSifre] AS [AdminSifre]
+    FROM [dbo].[TBL_ADMİN] AS [TBL_ADMİN]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_TBL_RESTORAN_TBL_KATEGORI" Association="Self.FK_TBL_RESTORAN_TBL_KATEGORI">
             <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
             <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
@@ -188,6 +209,7 @@
           <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_SIPARIS" ToRole="TBL_RESTORAN" />
           <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_SIPARIS" ToRole="TBL_URUN" />
           <Property Name="SiparisDurum" Type="Boolean" />
+          <Property Name="SiparisBilgi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -199,6 +221,8 @@
           <Property Name="UrunKategori" Type="Int32" />
           <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_URUN" ToRole="TBL_KATEGORI" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_URUN" ToRole="TBL_SIPARIS" />
+          <Property Name="UrunAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UrunResim" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
           <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
@@ -286,7 +310,17 @@
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
           </AssociationSet>
+          <FunctionImport Name="UrunAdCek" ReturnType="Collection(String)" />
+          <EntitySet Name="TBL_ADMİN" EntityType="ModelUrun.TBL_ADMİN" />
         </EntityContainer>
+        <EntityType Name="TBL_ADMİN">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AdminSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -325,6 +359,7 @@
           <EntitySetMapping Name="TBL_SIPARIS">
             <EntityTypeMapping TypeName="ModelUrun.TBL_SIPARIS">
               <MappingFragment StoreEntitySet="TBL_SIPARIS">
+                <ScalarProperty Name="SiparisBilgi" ColumnName="SiparisBilgi" />
                 <ScalarProperty Name="SiparisDurum" ColumnName="SiparisDurum" />
                 <ScalarProperty Name="SiparisID" ColumnName="SiparisID" />
                 <ScalarProperty Name="SiparisRestoranID" ColumnName="SiparisRestoranID" />
@@ -338,10 +373,22 @@
           <EntitySetMapping Name="TBL_URUN">
             <EntityTypeMapping TypeName="ModelUrun.TBL_URUN">
               <MappingFragment StoreEntitySet="TBL_URUN">
+                <ScalarProperty Name="UrunResim" ColumnName="UrunResim" />
+                <ScalarProperty Name="UrunAD" ColumnName="UrunAD" />
                 <ScalarProperty Name="UrunID" ColumnName="UrunID" />
                 <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
                 <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
                 <ScalarProperty Name="UrunKategori" ColumnName="UrunKategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UrunAdCek" FunctionName="ModelUrun.Store.UrunAdCek" />
+          <EntitySetMapping Name="TBL_ADMİN">
+            <EntityTypeMapping TypeName="ModelUrun.TBL_ADMİN">
+              <MappingFragment StoreEntitySet="TBL_ADMİN">
+                <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
+                <ScalarProperty Name="AdminAD" ColumnName="AdminAD" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

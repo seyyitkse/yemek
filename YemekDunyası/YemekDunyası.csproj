@@ -55,17 +55,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmKayit.cs">
+    <Compile Include="FrmAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmKayit.Designer.cs">
-      <DependentUpon>FrmKayit.cs</DependentUpon>
+    <Compile Include="FrmAdmin.Designer.cs">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAnaGiris.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAnaGiris.Designer.cs">
+      <DependentUpon>FrmAnaGiris.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmKullaniciKayit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmKullaniciKayit.Designer.cs">
+      <DependentUpon>FrmKullaniciKayit.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmKullaniciGiris.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmKullaniciGiris.Designer.cs">
       <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRestoranKayit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRestoranKayit.Designer.cs">
+      <DependentUpon>FrmRestoranKayit.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmSiparis.cs">
       <SubType>Form</SubType>
@@ -75,6 +93,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TBL_ADMİN.cs">
+      <DependentUpon>UrunModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_KATEGORI.cs">
       <DependentUpon>UrunModel.tt</DependentUpon>
     </Compile>
@@ -105,11 +126,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UrunModel.edmx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FrmKayit.resx">
-      <DependentUpon>FrmKayit.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAdmin.resx">
+      <DependentUpon>FrmAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAnaGiris.resx">
+      <DependentUpon>FrmAnaGiris.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmKullaniciKayit.resx">
+      <DependentUpon>FrmKullaniciKayit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmKullaniciGiris.resx">
       <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRestoranKayit.resx">
+      <DependentUpon>FrmRestoranKayit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSiparis.resx">
+      <DependentUpon>FrmSiparis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

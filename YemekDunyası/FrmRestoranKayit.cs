@@ -21,12 +21,12 @@ namespace YemekDunyası
         DbUrunEntity restoranKayit=new DbUrunEntity ();
 
         FrmAnaGiris geriFrm = new FrmAnaGiris();
+        private object TBL_KATEGORI;
 
         private void FrmRestoranKayit_Load(object sender, EventArgs e)
         {
             List<string> dataList = restoranKayit.TBL_KATEGORI.Select(item => item.KategoriAD).ToList();
 
-            // Verileri ListBox'a aktar
             foreach (string data in dataList)
             {
                 checkedListBox1.Items.Add(data);
@@ -35,41 +35,34 @@ namespace YemekDunyası
 
         private void BtnKayit_Click(object sender, EventArgs e)
         {
-            if ( TxtAd.Text == "" || checkedListBox1.CheckedItems.Count==0 )
+            List<string> secilenDegerler = new List<string>();
+
+            foreach (object item in checkedListBox1.CheckedItems)
             {
-                MessageBox.Show("Tüm alanları doldurunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                secilenDegerler.Add(item.ToString());
             }
-            else
+
+            var sorgu = from kategoriler in restoranKayit.TBL_KATEGORI
+                        where secilenDegerler.Contains(kategoriler.KategoriAD)
+                        select kategoriler.KategoriID;
+
+            List<int> idListesi = sorgu.ToList();
+            int kategoriIndex = 0;
+
+            while (kategoriIndex < idListesi.Count)
             {
-                TBL_RESTORAN yeniRestoran = new TBL_RESTORAN();
-                yeniRestoran.RestoranAD = TxtAd.Text;
-
-                List<int> secilenKategoriList = new List<int>();
-                foreach (object item in checkedListBox1.CheckedItems)
+                TBL_RESTORAN yeniRestoran = new TBL_RESTORAN
                 {
-                    int kategoriId;
-                    if (int.TryParse(item.ToString(), out kategoriId))
-                    {
-                        secilenKategoriList.Add(kategoriId);
-                    }
-                }
-
-               
+                     RestoranAD = TxtAd.Text,
+                     RestoranKATEGORI= idListesi[kategoriIndex]
+                };
 
                 restoranKayit.TBL_RESTORAN.Add(yeniRestoran);
-                restoranKayit.SaveChanges();
 
-                DialogResult secim = MessageBox.Show("Kullanıcı kaydedildi. Ana menüye dönmek ister misiniz =", "Uyarı", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (secim == DialogResult.Cancel)
-                {
-                    Application.Exit();
-                }
-                else
-                {
-                    geriFrm.Show();
-                    this.Hide();
-                }
+                kategoriIndex++;
             }
+
+            restoranKayit.SaveChanges();
         }
 
         private void BtnAnaSayfa_Click(object sender, EventArgs e)

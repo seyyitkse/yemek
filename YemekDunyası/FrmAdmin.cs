@@ -31,7 +31,7 @@ namespace YemekDunyası
                 var girisYap = from bilgi in kullanici.TBL_ADMİN where bilgi.AdminAD == TxtKullaniciAd.Text && bilgi.AdminSifre == TxtSifre.Text select bilgi;
                 if (girisYap.Any())
                 {
-                    FrmRestoranKayit frmRestoran= new FrmRestoranKayit();
+                    FrmRestoranIslem frmRestoran= new FrmRestoranIslem();
                     frmRestoran.Show();
                     this.Hide();
                 }
@@ -54,6 +54,13 @@ namespace YemekDunyası
             {
                 MessageBox.Show("Gitmediğinize sevindik :)", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void BtnAnaSayfa_Click(object sender, EventArgs e)
+        {
+            FrmAnaGiris frmGeri=new FrmAnaGiris();
+            frmGeri.Show();
+            this.Hide();
         }
     }
 }

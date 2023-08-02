@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.BtnAnaSayfa = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -119,11 +120,22 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // BtnAnaSayfa
+            // 
+            this.BtnAnaSayfa.Location = new System.Drawing.Point(176, 287);
+            this.BtnAnaSayfa.Name = "BtnAnaSayfa";
+            this.BtnAnaSayfa.Size = new System.Drawing.Size(193, 37);
+            this.BtnAnaSayfa.TabIndex = 20;
+            this.BtnAnaSayfa.Text = "Ana Sayfaya Dön";
+            this.BtnAnaSayfa.UseVisualStyleBackColor = true;
+            this.BtnAnaSayfa.Click += new System.EventHandler(this.BtnAnaSayfa_Click);
+            // 
             // FrmAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 329);
+            this.ClientSize = new System.Drawing.Size(520, 349);
+            this.Controls.Add(this.BtnAnaSayfa);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.BtnGiris);
             this.Controls.Add(this.TxtSifre);
@@ -154,5 +166,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button BtnAnaSayfa;
     }
 }

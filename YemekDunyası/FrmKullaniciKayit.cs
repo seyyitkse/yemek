@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,24 +47,35 @@ namespace YemekDunyası
             }
             else
             {
-                TBL_MUSTERI yeniMusteri = new TBL_MUSTERI();
-                yeniMusteri.KullaniciAD = TxtAd.Text;
-                yeniMusteri.KullaniciSOYAD = TxtSoyad.Text;
-                yeniMusteri.KullaniciNick = TxtNick.Text;
-                yeniMusteri.KullaniciSifre = TxtSifre.Text;
-                kullaniciKayit.TBL_MUSTERI.Add(yeniMusteri);
-                kullaniciKayit.SaveChanges();
-           
-                DialogResult secim = MessageBox.Show("Kullanıcı kaydedildi. Ana menüye dönmek ister misiniz =", "Uyarı", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (secim == DialogResult.Cancel)
+                bool kullaniciAdiVarMi = kullaniciKayit.TBL_MUSTERI.Any(k => k.KullaniciNick == TxtNick.Text);
+
+                if (kullaniciAdiVarMi)
                 {
-                    Application.Exit();
+                    MessageBox.Show("Bu kullanıcı adı zaten mevcut. Başka bir kullanıcı adı deneyin.", "Uyarı", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    kullaniciGeriFrm.Show();
-                    this.Hide();
+                    TBL_MUSTERI yeniMusteri = new TBL_MUSTERI();
+                    yeniMusteri.KullaniciAD = TxtAd.Text;
+                    yeniMusteri.KullaniciSOYAD = TxtSoyad.Text;
+                    yeniMusteri.KullaniciNick = TxtNick.Text;
+                    yeniMusteri.KullaniciSifre = TxtSifre.Text;
+                    kullaniciKayit.TBL_MUSTERI.Add(yeniMusteri);
+                    kullaniciKayit.SaveChanges();
+
+                    DialogResult secim = MessageBox.Show("Kullanıcı kaydedildi. Ana menüye dönmek ister misiniz ?", "Uyarı", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (secim == DialogResult.Cancel)
+                    {
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        kullaniciGeriFrm.Show();
+                        this.Hide();
+                    }
                 }
+
+                
             }
         }
 

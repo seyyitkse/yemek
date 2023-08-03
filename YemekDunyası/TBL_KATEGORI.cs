@@ -17,15 +17,12 @@ namespace YemekDunyası
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_KATEGORI()
         {
-            this.TBL_RESTORAN = new HashSet<TBL_RESTORAN>();
             this.TBL_URUN = new HashSet<TBL_URUN>();
         }
     
         public int KategoriID { get; set; }
         public string KategoriAD { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_RESTORAN> TBL_RESTORAN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_URUN> TBL_URUN { get; set; }
     }

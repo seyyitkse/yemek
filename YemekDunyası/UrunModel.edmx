@@ -5,8 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="TBL_ADMİN">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -39,7 +47,6 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <Property Name="RestoranID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RestoranAD" Type="varchar" MaxLength="30" />
           <Property Name="RestoranPUAN" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="RestoranKATEGORI" Type="int" />
         </EntityType>
         <EntityType Name="TBL_SIPARIS">
           <Key>
@@ -62,21 +69,9 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <Property Name="UrunFiyat" Type="decimal" Precision="18" Scale="0" />
           <Property Name="UrunStok" Type="int" />
           <Property Name="UrunKategori" Type="int" />
-          <Property Name="UrunAD" Type="varchar" MaxLength="20" />
-          <Property Name="UrunResim" Type="varchar" MaxLength="250" />
+          <Property Name="UrunAD" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunResim" Type="nvarchar" MaxLength="150" />
         </EntityType>
-        <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
-          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
-          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_KATEGORI">
-              <PropertyRef Name="KategoriID" />
-            </Principal>
-            <Dependent Role="TBL_RESTORAN">
-              <PropertyRef Name="RestoranKATEGORI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
           <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
           <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
@@ -125,24 +120,16 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="restoranBilgi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UrunAdCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ModelUrunStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_ADMİN" EntityType="Self.TBL_ADMİN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TBL_ADMİN" EntityType="Self.TBL_ADMİN" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TBL_ADMİN].[AdminID] AS [AdminID], 
-    [TBL_ADMİN].[AdminAD] AS [AdminAD], 
-    [TBL_ADMİN].[AdminSifre] AS [AdminSifre]
-    FROM [dbo].[TBL_ADMİN] AS [TBL_ADMİN]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_TBL_RESTORAN_TBL_KATEGORI" Association="Self.FK_TBL_RESTORAN_TBL_KATEGORI">
-            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
-            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
-          </AssociationSet>
           <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
             <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
@@ -170,7 +157,6 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           </Key>
           <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KategoriAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_RESTORAN_TBL_KATEGORI" FromRole="TBL_KATEGORI" ToRole="TBL_RESTORAN" />
           <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_KATEGORI" ToRole="TBL_URUN" />
         </EntityType>
         <EntityType Name="TBL_MUSTERI">
@@ -191,8 +177,6 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <Property Name="RestoranID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RestoranAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="RestoranPUAN" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="RestoranKATEGORI" Type="Int32" />
-          <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_RESTORAN_TBL_KATEGORI" FromRole="TBL_RESTORAN" ToRole="TBL_KATEGORI" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_RESTORAN" ToRole="TBL_SIPARIS" />
         </EntityType>
         <EntityType Name="TBL_SIPARIS">
@@ -221,21 +205,9 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <Property Name="UrunKategori" Type="Int32" />
           <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_URUN" ToRole="TBL_KATEGORI" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_URUN" ToRole="TBL_SIPARIS" />
-          <Property Name="UrunAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UrunResim" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="UrunAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UrunResim" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_TBL_RESTORAN_TBL_KATEGORI">
-          <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
-          <End Role="TBL_RESTORAN" Type="Self.TBL_RESTORAN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_KATEGORI">
-              <PropertyRef Name="KategoriID" />
-            </Principal>
-            <Dependent Role="TBL_RESTORAN">
-              <PropertyRef Name="RestoranKATEGORI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TBL_URUN_TBL_KATEGORI">
           <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
           <End Role="TBL_URUN" Type="Self.TBL_URUN" Multiplicity="*" />
@@ -290,10 +262,6 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" />
-          <AssociationSet Name="FK_TBL_RESTORAN_TBL_KATEGORI" Association="Self.FK_TBL_RESTORAN_TBL_KATEGORI">
-            <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
-            <End Role="TBL_RESTORAN" EntitySet="TBL_RESTORAN" />
-          </AssociationSet>
           <AssociationSet Name="FK_TBL_URUN_TBL_KATEGORI" Association="Self.FK_TBL_URUN_TBL_KATEGORI">
             <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
@@ -312,6 +280,8 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           </AssociationSet>
           <FunctionImport Name="UrunAdCek" ReturnType="Collection(String)" />
           <EntitySet Name="TBL_ADMİN" EntityType="ModelUrun.TBL_ADMİN" />
+          <FunctionImport Name="restoranBilgi" ReturnType="Collection(ModelUrun.restoranBilgi_Result)" />
+          <EntitySet Name="sysdiagrams" EntityType="ModelUrun.sysdiagrams" />
         </EntityContainer>
         <EntityType Name="TBL_ADMİN">
           <Key>
@@ -320,6 +290,22 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
           <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AdminAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="AdminSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="restoranBilgi_Result">
+          <Property Type="Int32" Name="RestoranID" Nullable="false" />
+          <Property Type="String" Name="RestoranAD" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="RestoranPUAN" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Restoran_Kategori" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -352,7 +338,6 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
                 <ScalarProperty Name="RestoranID" ColumnName="RestoranID" />
                 <ScalarProperty Name="RestoranAD" ColumnName="RestoranAD" />
                 <ScalarProperty Name="RestoranPUAN" ColumnName="RestoranPUAN" />
-                <ScalarProperty Name="RestoranKATEGORI" ColumnName="RestoranKATEGORI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -389,6 +374,27 @@ warning 6002: The table/view 'DB-YemekVeriTabani.dbo.TBL_ADMİN' does not have a
                 <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
                 <ScalarProperty Name="AdminAD" ColumnName="AdminAD" />
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="restoranBilgi" FunctionName="ModelUrun.Store.restoranBilgi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ModelUrun.restoranBilgi_Result">
+                <ScalarProperty Name="RestoranID" ColumnName="RestoranID" />
+                <ScalarProperty Name="RestoranAD" ColumnName="RestoranAD" />
+                <ScalarProperty Name="RestoranPUAN" ColumnName="RestoranPUAN" />
+                <ScalarProperty Name="Restoran_Kategori" ColumnName="Restoran Kategori" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ModelUrun.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

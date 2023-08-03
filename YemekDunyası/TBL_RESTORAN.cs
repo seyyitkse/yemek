@@ -23,9 +23,7 @@ namespace YemekDunyası
         public int RestoranID { get; set; }
         public string RestoranAD { get; set; }
         public Nullable<decimal> RestoranPUAN { get; set; }
-        public Nullable<int> RestoranKATEGORI { get; set; }
     
-        public virtual TBL_KATEGORI TBL_KATEGORI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_SIPARIS> TBL_SIPARIS { get; set; }
     }

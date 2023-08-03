@@ -162,5 +162,33 @@ namespace YemekDunyası
                 MessageBox.Show("Ürün güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void BtnKategori_Click(object sender, EventArgs e)
+        {
+            FrmKategoriIslem frmKategori = new FrmKategoriIslem();
+            frmKategori.Show();
+            this.Hide();
+        }
+        private void BtnAnaSayfa_Click(object sender, EventArgs e)
+        {
+            FrmAnaGiris frmGiris=new FrmAnaGiris();
+            frmGiris.Show();
+            this.Hide();
+        }
+
+        private void BtnAdmin_Click(object sender, EventArgs e)
+        {
+            FrmAdmin frmAdmin = new FrmAdmin();
+            frmAdmin.Show();
+            this.Hide();
+        }
+
+        private void BtnRestoranIslem_Click(object sender, EventArgs e)
+        {
+            FrmRestoranIslem frmRestoran=new FrmRestoranIslem();
+            frmRestoran.Show();
+            this.Hide();
+        }
+
+    
     }
 }

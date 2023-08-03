@@ -75,6 +75,7 @@
             this.BtnRestoranIslem.TabIndex = 70;
             this.BtnRestoranIslem.Text = "Restoran İşlemleri";
             this.BtnRestoranIslem.UseVisualStyleBackColor = false;
+            this.BtnRestoranIslem.Click += new System.EventHandler(this.BtnRestoranIslem_Click);
             // 
             // pictureBox1
             // 
@@ -100,6 +101,7 @@
             this.BtnAdmin.TabIndex = 66;
             this.BtnAdmin.Text = "Admin Girişe Dön";
             this.BtnAdmin.UseVisualStyleBackColor = false;
+            this.BtnAdmin.Click += new System.EventHandler(this.BtnAdmin_Click);
             // 
             // label1
             // 
@@ -184,6 +186,7 @@
             this.BtnKategori.TabIndex = 59;
             this.BtnKategori.Text = "Kategori İşlemleri";
             this.BtnKategori.UseVisualStyleBackColor = false;
+            this.BtnKategori.Click += new System.EventHandler(this.BtnKategori_Click);
             // 
             // label3
             // 
@@ -208,6 +211,7 @@
             this.BtnAnaSayfa.TabIndex = 56;
             this.BtnAnaSayfa.Text = "Ana Sayfaya Dön";
             this.BtnAnaSayfa.UseVisualStyleBackColor = false;
+            this.BtnAnaSayfa.Click += new System.EventHandler(this.BtnAnaSayfa_Click);
             // 
             // pictureBox2
             // 

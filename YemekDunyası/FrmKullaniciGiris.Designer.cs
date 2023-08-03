@@ -100,6 +100,7 @@
             this.TxtSifre.Name = "TxtSifre";
             this.TxtSifre.Size = new System.Drawing.Size(147, 26);
             this.TxtSifre.TabIndex = 7;
+            this.TxtSifre.UseSystemPasswordChar = true;
             // 
             // label5
             // 

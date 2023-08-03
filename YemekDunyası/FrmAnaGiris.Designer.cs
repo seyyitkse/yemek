@@ -71,7 +71,7 @@
             this.BtnRestoran.Name = "BtnRestoran";
             this.BtnRestoran.Size = new System.Drawing.Size(190, 126);
             this.BtnRestoran.TabIndex = 2;
-            this.BtnRestoran.Text = "Restoran Kayıt";
+            this.BtnRestoran.Text = "Admin İşlemleri";
             this.BtnRestoran.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.BtnRestoran.UseVisualStyleBackColor = false;
             this.BtnRestoran.Click += new System.EventHandler(this.BtnRestoran_Click);

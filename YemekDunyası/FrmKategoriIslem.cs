@@ -78,8 +78,8 @@ namespace YemekDunyası
                 var ID = kategoriIslem.TBL_KATEGORI.Find(kategoriID);
                 ID.KategoriAD = TxtKategoriAd.Text;
                 kategoriIslem.SaveChanges();
-                MessageBox.Show("Kategori güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 listele();
+                MessageBox.Show("Kategori güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void BtnSil_Click(object sender, EventArgs e)
@@ -110,6 +110,19 @@ namespace YemekDunyası
             FrmAnaGiris geriFrm= new FrmAnaGiris();
             geriFrm.Show();
             this.Hide();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            DialogResult secim = MessageBox.Show("Gerçekten çıkmak mı istiyorsunuz ?", "Uyarı", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (secim == DialogResult.OK)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                MessageBox.Show("Gitmediğinize sevindik :)", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

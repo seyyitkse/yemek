@@ -18,7 +18,5 @@ namespace YemekDunyası.Properties
         public Nullable<int> UrunID { get; set; }
         public Nullable<int> UrunEklenen { get; set; }
         public Nullable<int> KullanıcıID { get; set; }
-    
-        public virtual TBL_MUSTERI TBL_MUSTERI { get; set; }
     }
 }

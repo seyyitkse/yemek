@@ -17,7 +17,6 @@ namespace YemekDunyası.Properties
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_MUSTERI()
         {
-            this.TBL_SEPET = new HashSet<TBL_SEPET>();
             this.TBL_SIPARIS = new HashSet<TBL_SIPARIS>();
             this.TBL_SIPARIS1 = new HashSet<TBL_SIPARIS>();
         }
@@ -28,8 +27,6 @@ namespace YemekDunyası.Properties
         public string KullaniciSOYAD { get; set; }
         public string KullaniciNick { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_SEPET> TBL_SEPET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_SIPARIS> TBL_SIPARIS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

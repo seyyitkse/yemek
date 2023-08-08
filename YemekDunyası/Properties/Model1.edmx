@@ -73,18 +73,6 @@
           <Property Name="UrunResim" Type="nvarchar" MaxLength="150" />
           <Property Name="UrunRestoran" Type="int" />
         </EntityType>
-        <Association Name="FK_TBL_SEPET_TBL_MUSTERI">
-          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="0..1" />
-          <End Role="TBL_SEPET" Type="Self.TBL_SEPET" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_MUSTERI">
-              <PropertyRef Name="KullaniciID" />
-            </Principal>
-            <Dependent Role="TBL_SEPET">
-              <PropertyRef Name="KullanıcıID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
           <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
           <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
@@ -153,10 +141,6 @@
           <EntitySet Name="TBL_SEPET" EntityType="Self.TBL_SEPET" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_TBL_SEPET_TBL_MUSTERI" Association="Self.FK_TBL_SEPET_TBL_MUSTERI">
-            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
-            <End Role="TBL_SEPET" EntitySet="TBL_SEPET" />
-          </AssociationSet>
           <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
             <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
@@ -207,7 +191,6 @@
           <Property Name="KullaniciAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="KullaniciSOYAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="KullaniciNick" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBL_SEPET" Relationship="Self.FK_TBL_SEPET_TBL_MUSTERI" FromRole="TBL_MUSTERI" ToRole="TBL_SEPET" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_MUSTERI" ToRole="TBL_SIPARIS" />
           <NavigationProperty Name="TBL_SIPARIS1" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI1" FromRole="TBL_MUSTERI" ToRole="TBL_SIPARIS" />
         </EntityType>
@@ -228,7 +211,6 @@
           <Property Name="UrunID" Type="Int32" />
           <Property Name="UrunEklenen" Type="Int32" />
           <Property Name="KullanıcıID" Type="Int32" />
-          <NavigationProperty Name="TBL_MUSTERI" Relationship="Self.FK_TBL_SEPET_TBL_MUSTERI" FromRole="TBL_SEPET" ToRole="TBL_MUSTERI" />
         </EntityType>
         <EntityType Name="TBL_SIPARIS">
           <Key>
@@ -271,18 +253,6 @@
             </Principal>
             <Dependent Role="TBL_URUN">
               <PropertyRef Name="UrunKategori" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBL_SEPET_TBL_MUSTERI">
-          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="0..1" />
-          <End Role="TBL_SEPET" Type="Self.TBL_SEPET" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_MUSTERI">
-              <PropertyRef Name="KullaniciID" />
-            </Principal>
-            <Dependent Role="TBL_SEPET">
-              <PropertyRef Name="KullanıcıID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,10 +315,6 @@
           <AssociationSet Name="FK_TBL_URUN_TBL_KATEGORI" Association="Self.FK_TBL_URUN_TBL_KATEGORI">
             <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBL_SEPET_TBL_MUSTERI" Association="Self.FK_TBL_SEPET_TBL_MUSTERI">
-            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
-            <End Role="TBL_SEPET" EntitySet="TBL_SEPET" />
           </AssociationSet>
           <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
             <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />

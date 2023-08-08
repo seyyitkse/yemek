@@ -33,19 +33,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.BtnSepet = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblnick = new System.Windows.Forms.Label();
             this.LblKullaniciID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox3
@@ -83,96 +75,48 @@
             // 
             // BtnSepet
             // 
+            this.BtnSepet.BackColor = System.Drawing.Color.Bisque;
+            this.BtnSepet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSepet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.BtnSepet.Image = ((System.Drawing.Image)(resources.GetObject("BtnSepet.Image")));
             this.BtnSepet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSepet.Location = new System.Drawing.Point(848, 66);
+            this.BtnSepet.Location = new System.Drawing.Point(788, 66);
             this.BtnSepet.Name = "BtnSepet";
-            this.BtnSepet.Size = new System.Drawing.Size(148, 54);
+            this.BtnSepet.Size = new System.Drawing.Size(208, 54);
             this.BtnSepet.TabIndex = 72;
             this.BtnSepet.Text = "       Sepet";
-            this.BtnSepet.UseVisualStyleBackColor = true;
+            this.BtnSepet.UseVisualStyleBackColor = false;
             this.BtnSepet.Click += new System.EventHandler(this.BtnSepet_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Location = new System.Drawing.Point(89, 169);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(185, 337);
-            this.panel1.TabIndex = 73;
-            this.panel1.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 203);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Örnek Ürün";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(68, 236);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(44, 26);
-            this.numericUpDown1.TabIndex = 2;
-            // 
-            // button2
-            // 
-            this.button2.AutoSize = true;
-            this.button2.Location = new System.Drawing.Point(39, 268);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 37);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(18, 23);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(147, 168);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(102, 23);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(97, 63);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 55);
+            this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "label2";
-            this.label2.Visible = false;
             // 
-            // label5
+            // lblnick
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.Location = new System.Drawing.Point(97, 78);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(152, 55);
-            this.label5.TabIndex = 75;
-            this.label5.Text = "label5";
-            this.label5.Visible = false;
+            this.lblnick.AutoSize = true;
+            this.lblnick.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblnick.Location = new System.Drawing.Point(97, 78);
+            this.lblnick.Name = "lblnick";
+            this.lblnick.Size = new System.Drawing.Size(41, 15);
+            this.lblnick.TabIndex = 75;
+            this.lblnick.Text = "label5";
             // 
             // LblKullaniciID
             // 
             this.LblKullaniciID.AutoSize = true;
-            this.LblKullaniciID.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.LblKullaniciID.Location = new System.Drawing.Point(255, 81);
+            this.LblKullaniciID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.LblKullaniciID.Location = new System.Drawing.Point(97, 105);
             this.LblKullaniciID.Name = "LblKullaniciID";
-            this.LblKullaniciID.Size = new System.Drawing.Size(152, 55);
+            this.LblKullaniciID.Size = new System.Drawing.Size(41, 15);
             this.LblKullaniciID.TabIndex = 76;
             this.LblKullaniciID.Text = "label6";
-            this.LblKullaniciID.Visible = false;
             // 
             // FrmSiparis
             // 
@@ -181,9 +125,8 @@
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1037, 712);
             this.Controls.Add(this.LblKullaniciID);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblnick);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.BtnSepet);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox3);
@@ -197,10 +140,6 @@
             this.Load += new System.EventHandler(this.FrmSiparis_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,13 +150,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button BtnSepet;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblnick;
         private System.Windows.Forms.Label LblKullaniciID;
     }
 }

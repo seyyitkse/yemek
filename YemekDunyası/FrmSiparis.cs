@@ -45,35 +45,54 @@ namespace YemekDunyası
 
         FrmKullaniciGiris frmKullanici = new FrmKullaniciGiris();
         public string kullaniciNick;
+        public int kullaniciid;
 
-     
         private void FrmSiparis_Load(object sender, EventArgs e)
         {
             var kullanici = (from item in siparisIslem.TBL_MUSTERI
                              where item.KullaniciNick == kullaniciNick
                              select item.KullaniciID).FirstOrDefault();
-
             if (kullanici != null)
             {
                 if (int.TryParse(kullanici.ToString(), out int kullaniciID))
                 {
                     LblKullaniciID.Text = kullaniciID.ToString();
+                    string text = LblKullaniciID.Text;
+                    kullaniciid = Convert.ToInt32(text);
+                    lblnick.Text= kullaniciNick.ToString();
+
+                   
+
+                    var sepetUrunler = from item in siparisIslem.TBL_SEPET
+                                       where item.KullanıcıID == kullaniciID
+                                       select item;
+
+                    
+                    int toplamUrunAdedi = 0;
+
+                    foreach (var urun in sepetUrunler)
+                    {
+                        toplamUrunAdedi += 1;
+                    }
+
+                    // Toplam ürün adedini yazdırın
+                    BtnSepet.Text =  "Sepet "+toplamUrunAdedi;
                 }
                 else
                 {
-                    // KullaniciID çevrilemiyorsa buraya girebilirsiniz
-                    // Hata yönetimi veya uygun bir mesaj gösterimi yapabilirsiniz
+                  
                 }
             }
         
             try
             {
                 var categories = siparisIslem.TBL_KATEGORI.ToList();
-
+                int tabWidth = 1041;
+                int tabHeight = 583;
                 TabControl tabControl = new TabControl();
-                tabControl.Width = 1037;
-                tabControl.Height = 712;
-                tabControl.Location = new Point(0, 126);
+                tabControl.Width = tabWidth;
+                tabControl.Height = tabHeight;
+                tabControl.Location = new Point(-2, 126);
 
                 foreach (var category in categories)
                 {
@@ -83,7 +102,7 @@ namespace YemekDunyası
                     tabPage.AutoScroll = true;
                     var products = siparisIslem.TBL_URUN.Where(p => p.UrunKategori == category.KategoriID).ToList();
                     var sorgu = siparisIslem.TBL_URUN.Select(p => p.UrunID).ToList();
-                
+              
                     int yKonum = 50;
                     int xKonum = 40;
                     int numericKonum = 30;
@@ -100,7 +119,6 @@ namespace YemekDunyası
 
                         lblDeneme.Text = lblYazi;
                         lblDeneme.Location = new Point(butonX, 300);
-                        //lblDeneme.AutoSize = true;
 
                         resimUrun.Height = 150;
                         resimUrun.Width = 100;
@@ -164,7 +182,6 @@ namespace YemekDunyası
             Button tiklanmisButon = (Button)sender;
             int urunId = (int)tiklanmisButon.Tag;
 
-            // NumericUpDown kontrolünü bulun
             foreach (Control control in tiklanmisButon.Parent.Controls)
             {
                 if (control is NumericUpDown numericUpDown && (int)numericUpDown.Tag == urunId)
@@ -173,17 +190,18 @@ namespace YemekDunyası
                     if ( numericUpDown.Value !=0)
                     {
                         decimal urunAdet = numericUpDown.Value;
-                        MessageBox.Show($"Ürün ID: {urunId}, NumericUpDown Değeri: {urunAdet}");
+                        //MessageBox.Show($"Ürün ID: {urunId}, NumericUpDown Değeri: {urunAdet}");
                         int urunSayi = Convert.ToInt32(urunAdet);
                         TBL_SEPET yeniSepet = new TBL_SEPET();
+                        FrmSepet sepetfrm=new FrmSepet();
                         yeniSepet.UrunID = urunId;
-                        yeniSepet.KullanıcıID = int.Parse(LblKullaniciID.Text);
+                        yeniSepet.KullanıcıID = Convert.ToInt32(LblKullaniciID.Text);
                         yeniSepet.UrunEklenen =urunSayi;
-
                         siparisIslem.TBL_SEPET.Add(yeniSepet);
                         siparisIslem.SaveChanges();
-
-                        MessageBox.Show("Siparişiniz başarıyla eklendi.");
+                        
+                        MessageBox.Show("Siparişiniz başarıyla eklendi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        
                     }
                     else
                     {
@@ -193,20 +211,7 @@ namespace YemekDunyası
                 }
             }
         }
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabIcecek_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabControl1_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -223,9 +228,11 @@ namespace YemekDunyası
 
         private void BtnSepet_Click(object sender, EventArgs e)
         {
-            FrmSepet sepetGetir= new FrmSepet();
-            sepetGetir.kullaniciID =Convert.ToInt32(LblKullaniciID.Text);
-            sepetGetir.Show();
+            FrmSepet frmsepet = new FrmSepet();
+            frmsepet.kullaniciiD = kullaniciid;
+            frmsepet.kullanicinick = kullaniciNick;
+            frmsepet.kullaniciiD =Convert.ToInt32(LblKullaniciID.Text);
+            frmsepet.Show();
             this.Hide();
         }
     }

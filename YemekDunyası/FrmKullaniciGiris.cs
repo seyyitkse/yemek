@@ -49,6 +49,10 @@ namespace YemekDunyası
                 { 
                     FrmSiparis frmSiparis = new FrmSiparis();
                     frmSiparis.kullaniciNick = TxtNick.Text;
+                    
+                    FrmSepet frmsepet=new FrmSepet();
+                    frmsepet.kullanicinick=TxtNick.Text;
+                    
                     frmSiparis.Show();
                     this.Hide();
                     

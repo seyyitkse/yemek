@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -16,7 +17,7 @@ namespace YemekDunyası
         {
             InitializeComponent();
         }
-        DbUrunEntity urunIslem = new DbUrunEntity();
+        EntitiesUrun urunIslem = new EntitiesUrun();
 
 
         public void urunListele()
@@ -30,6 +31,7 @@ namespace YemekDunyası
                                             bilgi.UrunStok,
                                             bilgi.UrunResim,
                                             bilgi.UrunKategori,
+                                            bilgi.UrunRestoran,
                                         }).ToList();
 
         }
@@ -47,11 +49,23 @@ namespace YemekDunyası
             CmbKategori.DataSource = kategoriGetir;
         }
 
+        public void restoranGetir()
+        {
+            var restoranGetir=(from restoran in urunIslem.TBL_RESTORAN
+                               select new
+                               { restoran.RestoranID,
+                               restoran.RestoranAD,
+                               }).ToList ();
+            CmbRestoran.ValueMember = "RestoranID";
+            CmbRestoran.DisplayMember = "RestoranAD";
+            CmbRestoran.DataSource = restoranGetir;
+        }
+
         private void FrmUrunKayit_Load(object sender, EventArgs e)
         {
             kategoriGetir();
-            CmbKategori.Text = "";
             urunListele();
+            restoranGetir();
         }
 
 
@@ -90,7 +104,8 @@ namespace YemekDunyası
                 urun.UrunFiyat = int.Parse(TxtFiyat.Text);
                 urun.UrunKategori=int.Parse(CmbKategori.SelectedValue.ToString());
                 urun.UrunResim=TxtResim.Text;
-
+                urun.UrunRestoran = int.Parse(CmbRestoran.SelectedValue.ToString());
+                urunIslem.TBL_URUN.Add(urun);
                 urunIslem.SaveChanges();
                 MessageBox.Show("Ürün eklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 urunListele();
@@ -132,12 +147,22 @@ namespace YemekDunyası
             TxtAd.Text = dataGridView1.Rows[secilen].Cells[1].Value.ToString();
             TxtFiyat.Text = dataGridView1.Rows[secilen].Cells[2].Value.ToString();
             TxtStok.Text = dataGridView1.Rows[secilen].Cells[3].Value.ToString();
-            TxtResim.Text=dataGridView1.Rows[secilen].Cells[4].Value.ToString();
+            TxtResim.Text = dataGridView1.Rows[secilen].Cells[4].Value.ToString();
             urunResimBox.ImageLocation = TxtResim.Text;
-            string kategoriID= dataGridView1.Rows[secilen].Cells[3].Value.ToString();
 
-            var sorgu = urunIslem.TBL_KATEGORI.Where(x => x.KategoriID == secilen).Select(x => x.KategoriAD).FirstOrDefault();
-            CmbKategori.Text =sorgu;
+            string kategoriID = dataGridView1.Rows[secilen].Cells[5].Value.ToString();
+            string restoranID = dataGridView1.Rows[secilen].Cells[6].Value.ToString();
+            int kategori = int.Parse(kategoriID);
+            int restoran = int.Parse(restoranID);
+
+            // Kategori adını alma
+            var kategoriSorgu = urunIslem.TBL_KATEGORI.Where(x => x.KategoriID == kategori).Select(x => x.KategoriAD).FirstOrDefault();
+            CmbKategori.Text = kategoriSorgu;
+
+            // Restoran adını alma
+            var restoranSorgu = urunIslem.TBL_RESTORAN.Where(x => x.RestoranID == restoran).Select(x => x.RestoranAD).FirstOrDefault();
+            CmbRestoran.Text = restoranSorgu;
+
         }
 
         private void BtnGuncelle_Click(object sender, EventArgs e)
@@ -156,7 +181,7 @@ namespace YemekDunyası
                 ID.UrunStok = int.Parse(TxtStok.Text);
                 ID.UrunResim=TxtResim.Text;
                 ID.UrunKategori= int.Parse(CmbKategori.SelectedValue.ToString());
-
+                ID.UrunRestoran=int.Parse(CmbRestoran.SelectedValue.ToString());
                 urunIslem.SaveChanges();
                 urunListele();
                 MessageBox.Show("Ürün güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);

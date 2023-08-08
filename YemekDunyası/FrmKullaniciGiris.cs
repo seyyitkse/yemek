@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -31,7 +32,7 @@ namespace YemekDunyası
             }
 
         }
-
+        string kullaniciAdi;
         private void BtnGiris_Click(object sender, EventArgs e)
         {
             if (TxtSifre.Text=="" && TxtNick.Text=="")
@@ -41,14 +42,16 @@ namespace YemekDunyası
             else
             {
 
-                DbUrunEntity kullanici=new DbUrunEntity();
+                EntitiesUrun kullanici =new EntitiesUrun();
 
                 var girisYap = from bilgi in kullanici.TBL_MUSTERI where bilgi.KullaniciNick == TxtNick.Text && bilgi.KullaniciSifre == TxtSifre.Text select bilgi;
                 if (girisYap.Any())
-                {
+                { 
                     FrmSiparis frmSiparis = new FrmSiparis();
+                    frmSiparis.kullaniciNick = TxtNick.Text;
                     frmSiparis.Show();
                     this.Hide();
+                    
                 }
                 else
                 {

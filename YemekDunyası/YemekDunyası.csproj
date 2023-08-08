@@ -67,6 +67,12 @@
     <Compile Include="FrmAnaGiris.Designer.cs">
       <DependentUpon>FrmAnaGiris.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmKategoriIslem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmKategoriIslem.Designer.cs">
+      <DependentUpon>FrmKategoriIslem.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmKullaniciKayit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,11 +85,17 @@
     <Compile Include="FrmKullaniciGiris.Designer.cs">
       <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmRestoranKayit.cs">
+    <Compile Include="FrmRestoranIslem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmRestoranKayit.Designer.cs">
-      <DependentUpon>FrmRestoranKayit.cs</DependentUpon>
+    <Compile Include="FrmRestoranIslem.Designer.cs">
+      <DependentUpon>FrmRestoranIslem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSepet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSepet.Designer.cs">
+      <DependentUpon>FrmSepet.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmSiparis.cs">
       <SubType>Form</SubType>
@@ -91,40 +103,39 @@
     <Compile Include="FrmSiparis.Designer.cs">
       <DependentUpon>FrmSiparis.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUrunKayit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUrunKayit.Designer.cs">
+      <DependentUpon>FrmUrunKayit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TBL_ADMİN.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TBL_KATEGORI.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TBL_MUSTERI.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TBL_RESTORAN.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TBL_SIPARIS.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TBL_URUN.cs">
-      <DependentUpon>UrunModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UrunModel.Context.cs">
+    <Compile Include="Properties\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UrunModel.Context.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="UrunModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UrunModel.tt</DependentUpon>
+    <Compile Include="Properties\TBL_ADMİN.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="UrunModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UrunModel.edmx</DependentUpon>
+    <Compile Include="Properties\TBL_KATEGORI.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\TBL_MUSTERI.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\TBL_RESTORAN.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\TBL_SEPET.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\TBL_SIPARIS.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\TBL_URUN.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FrmAdmin.resx">
       <DependentUpon>FrmAdmin.cs</DependentUpon>
@@ -132,28 +143,55 @@
     <EmbeddedResource Include="FrmAnaGiris.resx">
       <DependentUpon>FrmAnaGiris.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmKategoriIslem.resx">
+      <DependentUpon>FrmKategoriIslem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmKullaniciKayit.resx">
       <DependentUpon>FrmKullaniciKayit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmKullaniciGiris.resx">
       <DependentUpon>FrmKullaniciGiris.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmRestoranKayit.resx">
-      <DependentUpon>FrmRestoranKayit.cs</DependentUpon>
+    <EmbeddedResource Include="FrmRestoranIslem.resx">
+      <DependentUpon>FrmRestoranIslem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSepet.resx">
+      <DependentUpon>FrmSepet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSiparis.resx">
       <DependentUpon>FrmSiparis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUrunKayit.resx">
+      <DependentUpon>FrmUrunKayit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <EntityDeploy Include="Properties\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -163,13 +201,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EntityDeploy Include="UrunModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UrunModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="UrunModel.edmx.diagram">
-      <DependentUpon>UrunModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -178,15 +209,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UrunModel.Context.tt">
+    <Content Include="Properties\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UrunModel.edmx</DependentUpon>
-      <LastGenOutput>UrunModel.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="UrunModel.tt">
+    <Content Include="Properties\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UrunModel.edmx</DependentUpon>
-      <LastGenOutput>UrunModel.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

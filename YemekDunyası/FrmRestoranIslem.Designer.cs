@@ -33,10 +33,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.BtnKayit = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.TxtAd = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.BtnKategori = new System.Windows.Forms.Button();
             this.BtnListele = new System.Windows.Forms.Button();
@@ -96,7 +94,7 @@
             this.BtnKayit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnKayit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnKayit.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.BtnKayit.Location = new System.Drawing.Point(161, 360);
+            this.BtnKayit.Location = new System.Drawing.Point(117, 341);
             this.BtnKayit.Name = "BtnKayit";
             this.BtnKayit.Size = new System.Drawing.Size(105, 36);
             this.BtnKayit.TabIndex = 26;
@@ -104,18 +102,9 @@
             this.BtnKayit.UseVisualStyleBackColor = false;
             this.BtnKayit.Click += new System.EventHandler(this.BtnKayit_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 200);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(142, 20);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Restoran Kategori:";
-            // 
             // TxtAd
             // 
-            this.TxtAd.Location = new System.Drawing.Point(173, 139);
+            this.TxtAd.Location = new System.Drawing.Point(199, 173);
             this.TxtAd.Name = "TxtAd";
             this.TxtAd.Size = new System.Drawing.Size(205, 26);
             this.TxtAd.TabIndex = 23;
@@ -123,19 +112,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 142);
+            this.label2.Location = new System.Drawing.Point(81, 176);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 20);
             this.label2.TabIndex = 22;
             this.label2.Text = "Restoran Adı:";
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(173, 197);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(205, 151);
-            this.checkedListBox1.TabIndex = 34;
             // 
             // label3
             // 
@@ -168,7 +149,7 @@
             this.BtnListele.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnListele.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnListele.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.BtnListele.Location = new System.Drawing.Point(282, 360);
+            this.BtnListele.Location = new System.Drawing.Point(238, 341);
             this.BtnListele.Name = "BtnListele";
             this.BtnListele.Size = new System.Drawing.Size(105, 36);
             this.BtnListele.TabIndex = 42;
@@ -182,7 +163,7 @@
             this.BtnSil.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSil.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.BtnSil.Location = new System.Drawing.Point(161, 424);
+            this.BtnSil.Location = new System.Drawing.Point(117, 405);
             this.BtnSil.Name = "BtnSil";
             this.BtnSil.Size = new System.Drawing.Size(105, 36);
             this.BtnSil.TabIndex = 41;
@@ -196,7 +177,7 @@
             this.BtnGuncelle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnGuncelle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnGuncelle.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.BtnGuncelle.Location = new System.Drawing.Point(282, 424);
+            this.BtnGuncelle.Location = new System.Drawing.Point(238, 405);
             this.BtnGuncelle.Name = "BtnGuncelle";
             this.BtnGuncelle.Size = new System.Drawing.Size(105, 36);
             this.BtnGuncelle.TabIndex = 40;
@@ -210,7 +191,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Pink;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(438, 107);
+            this.dataGridView1.Location = new System.Drawing.Point(433, 105);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(498, 346);
@@ -220,7 +201,7 @@
             // 
             // TxtID
             // 
-            this.TxtID.Location = new System.Drawing.Point(173, 107);
+            this.TxtID.Location = new System.Drawing.Point(199, 141);
             this.TxtID.Name = "TxtID";
             this.TxtID.Size = new System.Drawing.Size(205, 26);
             this.TxtID.TabIndex = 43;
@@ -228,7 +209,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(61, 110);
+            this.label1.Location = new System.Drawing.Point(87, 144);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 44;
@@ -263,7 +244,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(41, 170);
+            this.label6.Location = new System.Drawing.Point(67, 204);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(120, 20);
             this.label6.TabIndex = 47;
@@ -272,7 +253,7 @@
             // lblPuan
             // 
             this.lblPuan.AutoSize = true;
-            this.lblPuan.Location = new System.Drawing.Point(169, 170);
+            this.lblPuan.Location = new System.Drawing.Point(198, 204);
             this.lblPuan.Name = "lblPuan";
             this.lblPuan.Size = new System.Drawing.Size(120, 20);
             this.lblPuan.TabIndex = 48;
@@ -311,12 +292,10 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.BtnKategori);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.BtnAnaSayfa);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.BtnKayit);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.TxtAd);
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -340,10 +319,8 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button BtnKayit;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtAd;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button BtnKategori;
         private System.Windows.Forms.Button BtnListele;

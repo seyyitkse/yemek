@@ -5,11 +5,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Button = System.Windows.Forms.Button;
@@ -23,10 +25,10 @@ namespace YemekDunyası
             InitializeComponent();
         }
 
-        DbUrunEntity siparisIslem = new DbUrunEntity();
-       
+        EntitiesUrun siparisIslem = new EntitiesUrun();
 
-        
+
+
         //public void kategoriGetir()
         //{
         //    var kategoriGetir = (from kategori in siparisIslem.TBL_KATEGORI
@@ -40,97 +42,30 @@ namespace YemekDunyası
         //    CmbKategori.DisplayMember = "KategoriAD";
         //    CmbKategori.DataSource = kategoriGetir;
         //}
+
+        FrmKullaniciGiris frmKullanici = new FrmKullaniciGiris();
+        public string kullaniciNick;
+
+     
         private void FrmSiparis_Load(object sender, EventArgs e)
         {
-            //var sorgu = siparisIslem.TBL_URUN.ToList();
+            var kullanici = (from item in siparisIslem.TBL_MUSTERI
+                             where item.KullaniciNick == kullaniciNick
+                             select item.KullaniciID).FirstOrDefault();
 
-            //var girisYap = from bilgi in siparisIslem.TBL_URUN
-            //               where bilgi.UrunKategori == 4
-            //               select new
-            //               {
-            //                   bilgi.UrunResim,
-            //                   bilgi.UrunAD,
-            //                   bilgi.UrunKategori,
-            //               };
-
-            ////int yKonum = 50;
-            //int xKonum = 40;
-            //int butonX = 35;
-            //int resimY = 35;
-            //foreach (var bilgi in girisYap)
-            //{
-
-            //    string lblYazi = bilgi.UrunAD;
-            //    Label lblDeneme = new Label();
-            //    PictureBox resimUrun = new PictureBox();
-            //    NumericUpDown yeniArtis = new NumericUpDown();
-            //    Button yeniButon = new Button();
-            //    tabPage1.Name = bilgi.UrunAD;
-
-            //    lblDeneme.Text = lblYazi;
-            //    lblDeneme.Location = new Point(xKonum, 280);
-            //    lblDeneme.AutoSize = true;
-
-            //    resimUrun.Height = 150;
-            //    resimUrun.Width = 100;
-            //    resimUrun.Location = new Point(resimY, 130);
-            //    resimUrun.ImageLocation = bilgi.UrunResim;
-            //    resimUrun.SizeMode = PictureBoxSizeMode.Zoom;
-
-            //    yeniArtis.Location = new Point(20 + xKonum, 300);
-            //    yeniArtis.Width = 40;
-            //    yeniArtis.Height = 40;
-
-            //    yeniButon.Location = new Point(butonX, 340);
-            //    yeniButon.Text = "Sepete Ekle";
-            //    yeniButon.AutoSize = true;
-            //    yeniButon.BackColor = Color.White;
-
-            //    panel1.AutoScroll = true;
-
-            //    panel1.Controls.Add(lblDeneme);
-            //    panel1.Controls.Add(resimUrun);
-            //    panel1.Controls.Add(yeniArtis);
-            //    panel1.Controls.Add(yeniButon);
-
-            //    butonX += 200;
-            //    xKonum += 200;
-            //    resimY += 200;
-            //}
-
-            //try
-            //{
-            //    var categories = siparisIslem.TBL_URUN.ToList();
-
-            //    TabControl tabControl = new TabControl();
-            //    tabControl.Width = 1005;
-            //    tabControl.Height = 570;
-            //    tabControl.Location=new Point(200, 150);
-            //    foreach (var category in categories)
-            //    {
-            //        TabPage tabPage = new TabPage(category.UrunRestoran.ToString());
-            //        tabPage.Name = $"tabPage_{category.UrunKategori}";
-
-            //        var products = siparisIslem.TBL_RESTORAN.Where(p => p.RestoranID == category.UrunRestoran).ToList();
-
-            //        foreach (var product in products)
-            //        {
-            //            Label label = new Label();
-            //            label.Text = product.RestoranAD;
-            //            label.AutoSize = true;
-            //            tabPage.Controls.Add(label);
-            //        }
-
-            //        tabControl.TabPages.Add(tabPage);
-            //    }
-
-            //    this.Controls.Add(tabControl);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message);
-            //}
-
+            if (kullanici != null)
+            {
+                if (int.TryParse(kullanici.ToString(), out int kullaniciID))
+                {
+                    LblKullaniciID.Text = kullaniciID.ToString();
+                }
+                else
+                {
+                    // KullaniciID çevrilemiyorsa buraya girebilirsiniz
+                    // Hata yönetimi veya uygun bir mesaj gösterimi yapabilirsiniz
+                }
+            }
+        
             try
             {
                 var categories = siparisIslem.TBL_KATEGORI.ToList();
@@ -139,18 +74,16 @@ namespace YemekDunyası
                 tabControl.Width = 1037;
                 tabControl.Height = 712;
                 tabControl.Location = new Point(0, 126);
-                    
+
                 foreach (var category in categories)
                 {
 
                     TabPage tabPage = new TabPage(category.KategoriAD);
                     tabPage.Name = $"tabPage_{category.KategoriID}";
                     tabPage.AutoScroll = true;
-                    var products = siparisIslem.TBL_URUN.Where(p => p.UrunKategori == category.KategoriID ).ToList();
-                    //                var products = siparisIslem.TBL_URUN
-                    //.Where(p => p.UrunKategori == category.KategoriID)
-                    //.OrderBy(p => p.UrunFiyat) // Fiyata göre küçükten büyüğe sırala
-                    //.FirstOrDefault(); 
+                    var products = siparisIslem.TBL_URUN.Where(p => p.UrunKategori == category.KategoriID).ToList();
+                    var sorgu = siparisIslem.TBL_URUN.Select(p => p.UrunID).ToList();
+                
                     int yKonum = 50;
                     int xKonum = 40;
                     int numericKonum = 30;
@@ -158,15 +91,13 @@ namespace YemekDunyası
                     foreach (var product in products)
                     {
                         string lblYazi = product.UrunAD;
-                        Label lblDeneme = new Label();
+
                         PictureBox resimUrun = new PictureBox();
                         NumericUpDown yeniArtis = new NumericUpDown();
                         Button yeniButon = new Button();
+                        System.Windows.Forms.Label lblDeneme = new System.Windows.Forms.Label();
                         tabPage.Name = product.UrunAD;
-                        yeniButon.Click +=(sender)
-                            {
 
-                        }
                         lblDeneme.Text = lblYazi;
                         lblDeneme.Location = new Point(butonX, 300);
                         //lblDeneme.AutoSize = true;
@@ -180,38 +111,17 @@ namespace YemekDunyası
                         yeniArtis.Location = new Point(20 + numericKonum, 340);
                         yeniArtis.Width = 40;
                         yeniArtis.Height = 40;
+                        yeniArtis.Tag = product.UrunID;
 
                         yeniButon.Location = new Point(butonX, 380);
                         yeniButon.Text = "Sepete Ekle";
                         yeniButon.AutoSize = true;
                         yeniButon.BackColor = Color.White;
+                        yeniButon.Name = (product.UrunID).ToString();
+                        yeniButon.Tag = product.UrunID;
 
-                        yeniButon.Click += (sender, e) =>
-                        {
-                            // Butona tıklandığında çalışacak kodlar burada olacak
-                            // Ürünü sepete eklemek için gerekli işlemleri yapabilirsiniz
-                            sepet.Add(product); // Örnek olarak ürünü sepet listesine ekleyelim
+                        yeniButon.Click += new EventHandler(yeniButon_Click);
 
-                            // veya sepete eklenen ürünün adını kullanıcıya bildirelim
-                            MessageBox.Show($"{product.UrunAD} sepete eklendi.");
-
-                            // Daha sonra isterseniz sepete eklenen ürünleri başka bir formda veya başka bir yerde göstermek için bu sepet listesini kullanabilirsiniz.
-                        };
-                        // Ürünü satan restoranları dinamik olarak getirme ve Checkbox'lara liste oluşturma
-                        var restorans = siparisIslem.TBL_RESTORAN.Where(r => r.RestoranID == product.UrunRestoran).ToList();
-                        int restoranYKonum = yKonum + 250;
-
-                        //foreach (var restoran in restorans)
-                        //{
-                        //    CheckBox checkBoxRestoran = new CheckBox();
-                        //    checkBoxRestoran.Text = restoran.RestoranAD;
-                        //    checkBoxRestoran.Location = new Point(numericKonum, 320);
-                        //    checkBoxRestoran.AutoSize = true;
-
-                        //    tabPage.Controls.Add(checkBoxRestoran);
-
-                        //    restoranYKonum += 20; // Yeni restoran bilgilerini alt alta listelemek için
-                        //}
 
                         tabPage.Controls.Add(lblDeneme);
                         tabPage.Controls.Add(resimUrun);
@@ -233,94 +143,56 @@ namespace YemekDunyası
                 MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message);
             }
 
-
-            //try
-            //{
-            //    var categories = siparisIslem.TBL_KATEGORI.ToList();
-
-            //    TabControl tabControl = new TabControl();
-            //    tabControl.Width = 1037;
-            //    tabControl.Height = 712;
-            //    tabControl.Location = new Point(0, 126);
-            //    foreach (var category in categories)
-            //    {
-            //        TabPage tabPage = new TabPage(category.KategoriAD);
-            //        tabPage.Name = $"tabPage_{category.KategoriID}";
-            //        tabPage.AutoScroll = true;
-            //        var products = siparisIslem.TBL_URUN.Where(p => p.UrunKategori == category.KategoriID).ToList();
-
-            //        int yKonum = 50;
-            //        int xKonum = 40;
-            //        int butonX = 35;
-            //        int resimY = 35;
-
-            //        int numericKonum = 30;
-
-            //        foreach (var product in products)
-            //        {
-            //            string lblYazi = product.UrunAD;
-            //            Label lblDeneme = new Label();
-            //            PictureBox resimUrun = new PictureBox();
-            //            NumericUpDown yeniArtis = new NumericUpDown();
-            //            Button yeniButon = new Button();
-            //            tabPage1.Name = product.UrunAD;
-
-            //            lblDeneme.Text = lblYazi;
-            //            lblDeneme.Location = new Point(butonX, 280);
-            //            lblDeneme.AutoSize = true;
-
-            //            resimUrun.Height = 150;
-            //            resimUrun.Width = 100;
-            //            resimUrun.Location = new Point(numericKonum, 130);
-            //            resimUrun.ImageLocation = product.UrunResim;
-            //            resimUrun.SizeMode = PictureBoxSizeMode.Zoom;
-
-            //            yeniArtis.Location = new Point(20 + numericKonum, 300);
-            //            yeniArtis.Width = 40;
-            //            yeniArtis.Height = 40;
-
-            //            yeniButon.Location = new Point(butonX, 360);
-            //            yeniButon.Text = "Sepete Ekle";
-            //            yeniButon.AutoSize = true;
-            //            yeniButon.BackColor = Color.White;
-            //            butonX += 200;
-            //            numericKonum += 200;
-
-            //            tabPage.Controls.Add(lblDeneme);
-            //            tabPage.Controls.Add(resimUrun);
-            //            tabPage.Controls.Add(yeniArtis);
-            //            tabPage.Controls.Add(yeniButon);
-
-            //            yKonum += 250;
-
-            //            // Ürünü satan restoranları dinamik olarak getirme ve Checkbox'lara liste oluşturma
-            //            var restorans = siparisIslem.TBL_RESTORAN.Where(r => r.RestoranID == product.UrunRestoran).ToList();
-            //            int restoranYKonum = yKonum;
-
-            //            foreach (var restoran in restorans)
-            //            {
-            //                CheckBox checkBoxRestoran = new CheckBox();
-            //                checkBoxRestoran.Text = restoran.RestoranAD;
-            //                checkBoxRestoran.Location = new Point(xKonum, restoranYKonum);
-            //                checkBoxRestoran.AutoSize = true;
-
-            //                tabPage.Controls.Add(checkBoxRestoran);
-
-            //                restoranYKonum += 20; // Yeni restoran bilgilerini alt alta listelemek için
-            //            }
-            //        }
-
-            //        tabControl.TabPages.Add(tabPage);
-            //    }
-
-            //    this.Controls.Add(tabControl);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message);
-            //}
         }
+        decimal numericValue;
 
+        public string tagDegeri;
+        //private void yeniButon_Click(object sender, EventArgs e)
+        //{
+
+        //    Button tiklanmisButon = (Button)sender;
+        //    string tag = tiklanmisButon.Tag.ToString();
+        //    label2.Text = tag;
+        //    tagDegeri = label2.Text;
+        //    label5.Text = numericValue.ToString();
+
+        //}
+
+    
+        private void yeniButon_Click(object sender, EventArgs e)
+        {
+            Button tiklanmisButon = (Button)sender;
+            int urunId = (int)tiklanmisButon.Tag;
+
+            // NumericUpDown kontrolünü bulun
+            foreach (Control control in tiklanmisButon.Parent.Controls)
+            {
+                if (control is NumericUpDown numericUpDown && (int)numericUpDown.Tag == urunId)
+                {
+                 
+                    if ( numericUpDown.Value !=0)
+                    {
+                        decimal urunAdet = numericUpDown.Value;
+                        MessageBox.Show($"Ürün ID: {urunId}, NumericUpDown Değeri: {urunAdet}");
+                        int urunSayi = Convert.ToInt32(urunAdet);
+                        TBL_SEPET yeniSepet = new TBL_SEPET();
+                        yeniSepet.UrunID = urunId;
+                        yeniSepet.KullanıcıID = int.Parse(LblKullaniciID.Text);
+                        yeniSepet.UrunEklenen =urunSayi;
+
+                        siparisIslem.TBL_SEPET.Add(yeniSepet);
+                        siparisIslem.SaveChanges();
+
+                        MessageBox.Show("Siparişiniz başarıyla eklendi.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lütfen adet seçiniz !", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+            }
+        }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -349,6 +221,16 @@ namespace YemekDunyası
             }
         }
 
-       
+        private void BtnSepet_Click(object sender, EventArgs e)
+        {
+            FrmSepet sepetGetir= new FrmSepet();
+            sepetGetir.kullaniciID =Convert.ToInt32(LblKullaniciID.Text);
+            sepetGetir.Show();
+            this.Hide();
+        }
+    }
+
+    internal class DBUrunEntities
+    {
     }
 }

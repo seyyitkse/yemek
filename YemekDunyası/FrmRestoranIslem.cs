@@ -10,6 +10,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -19,57 +20,32 @@ namespace YemekDunyası
         {
             InitializeComponent();
         }
-        DbUrunEntity restoranIslem=new DbUrunEntity ();
+        EntitiesUrun restoranIslem=new EntitiesUrun ();
 
         FrmAnaGiris geriFrm = new FrmAnaGiris();
 
         public void restoranListele()
         {
-            dataGridView1.DataSource = restoranIslem.restoranBilgi().ToList();   
+            dataGridView1.DataSource = restoranIslem.TBL_RESTORAN.ToList();   
         }
 
         private void FrmRestoranKayit_Load(object sender, EventArgs e)
         {
            
 
-            dataGridView1.DataSource = restoranIslem.restoranBilgi().ToList();
+            dataGridView1.DataSource = restoranIslem.TBL_RESTORAN.ToList();
         }
 
         private void BtnKayit_Click(object sender, EventArgs e)
         {
-            if (TxtAd.Text=="" || checkedListBox1.CheckedItems.Count==0)
+            if (TxtAd.Text=="" )
             {
                 MessageBox.Show("Lütfen tüm alanları doldurunuz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-                List<string> secilenDegerler = new List<string>();
-
-                foreach (object item in checkedListBox1.CheckedItems)
-                {
-                    secilenDegerler.Add(item.ToString());
-                }
-
-                var sorgu = from kategoriler in restoranIslem.TBL_KATEGORI
-                            where secilenDegerler.Contains(kategoriler.KategoriAD)
-                            select kategoriler.KategoriID;
-
-                List<int> idListesi = sorgu.ToList();
-                int kategoriIndex = 0;
-
-                while (kategoriIndex < idListesi.Count)
-                {
-                    TBL_RESTORAN yeniRestoran = new TBL_RESTORAN
-                    {
-                        RestoranAD = TxtAd.Text,
-                        //RestoranKATEGORI = idListesi[kategoriIndex]
-                    };
-
-                    restoranIslem.TBL_RESTORAN.Add(yeniRestoran);
-
-                    kategoriIndex++;
-                }
-
+                TBL_RESTORAN yeniRestoran= new TBL_RESTORAN();
+                yeniRestoran.RestoranAD=TxtAd.Text;
                 restoranIslem.SaveChanges();
                 MessageBox.Show("Restoran eklendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -150,7 +126,7 @@ namespace YemekDunyası
         {
             if (TxtID.Text == "")
             {
-                MessageBox.Show("Lütfen güncellemek istediğiniz kategoriyi seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lütfen güncellemek istediğiniz restoranı seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -159,7 +135,7 @@ namespace YemekDunyası
                 ID.RestoranAD = TxtAd.Text;
                 restoranIslem.SaveChanges();
                 restoranListele();
-                MessageBox.Show("Restoran kategori güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Restoran güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

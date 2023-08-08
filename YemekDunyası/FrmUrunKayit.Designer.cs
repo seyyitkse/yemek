@@ -57,6 +57,8 @@
             this.BtnResim = new System.Windows.Forms.Button();
             this.resimSecDialog = new System.Windows.Forms.OpenFileDialog();
             this.urunResimBox = new System.Windows.Forms.PictureBox();
+            this.CmbRestoran = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -81,7 +83,7 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1104, 8);
+            this.pictureBox1.Location = new System.Drawing.Point(1109, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(34, 36);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -354,12 +356,32 @@
             this.urunResimBox.TabIndex = 79;
             this.urunResimBox.TabStop = false;
             // 
+            // CmbRestoran
+            // 
+            this.CmbRestoran.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbRestoran.FormattingEnabled = true;
+            this.CmbRestoran.Location = new System.Drawing.Point(164, 342);
+            this.CmbRestoran.Name = "CmbRestoran";
+            this.CmbRestoran.Size = new System.Drawing.Size(205, 28);
+            this.CmbRestoran.TabIndex = 81;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(78, 345);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(79, 20);
+            this.label9.TabIndex = 80;
+            this.label9.Text = "Restoran:";
+            // 
             // FrmUrunKayit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Bisque;
             this.ClientSize = new System.Drawing.Size(1141, 553);
+            this.Controls.Add(this.CmbRestoran);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.urunResimBox);
             this.Controls.Add(this.BtnResim);
             this.Controls.Add(this.label8);
@@ -433,5 +455,7 @@
         private System.Windows.Forms.Button BtnResim;
         private System.Windows.Forms.OpenFileDialog resimSecDialog;
         private System.Windows.Forms.PictureBox urunResimBox;
+        private System.Windows.Forms.ComboBox CmbRestoran;
+        private System.Windows.Forms.Label label9;
     }
 }

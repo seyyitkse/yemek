@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -16,7 +17,7 @@ namespace YemekDunyası
         {
             InitializeComponent();
         }
-        DbUrunEntity kategoriIslem=new DbUrunEntity();
+        EntitiesUrun kategoriIslem=new EntitiesUrun();
         
         public void listele()
         {
@@ -41,7 +42,7 @@ namespace YemekDunyası
 
         private void BtnKayit_Click(object sender, EventArgs e)
         {
-            if (TxtKategoriAd.Text == "" || TxtID.Text == "")
+            if (TxtKategoriAd.Text == "" )
             {
                 MessageBox.Show("Tüm alanları doldurunuz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -68,7 +69,7 @@ namespace YemekDunyası
 
         private void BtnGuncelle_Click(object sender, EventArgs e)
         {
-            if (TxtID.Text=="")
+            if (TxtID.Text=="" || TxtKategoriAd.Text == ""  )
             {
                 MessageBox.Show("Lütfen güncellemek istediğiniz kategoriyi seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -36,7 +37,7 @@ namespace YemekDunyası
         }
 
 
-        DbUrunEntity kullaniciKayit= new DbUrunEntity();
+        EntitiesUrun kullaniciKayit= new EntitiesUrun();
 
 
         private void BtnKayit_Click(object sender, EventArgs e)
@@ -74,8 +75,6 @@ namespace YemekDunyası
                         this.Hide();
                     }
                 }
-
-                
             }
         }
 

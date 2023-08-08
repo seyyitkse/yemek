@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YemekDunyası.Properties;
 
 namespace YemekDunyası
 {
@@ -26,7 +27,7 @@ namespace YemekDunyası
             else
             {
 
-                DbUrunEntity kullanici = new DbUrunEntity();
+                EntitiesUrun kullanici = new EntitiesUrun();
 
                 var girisYap = from bilgi in kullanici.TBL_ADMİN where bilgi.AdminAD == TxtKullaniciAd.Text && bilgi.AdminSifre == TxtSifre.Text select bilgi;
                 if (girisYap.Any())

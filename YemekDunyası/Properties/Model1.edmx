@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ModelUrun.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_ADMİN">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -48,18 +38,28 @@
           <Property Name="RestoranAD" Type="varchar" MaxLength="30" />
           <Property Name="RestoranPUAN" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="TBL_SEPET">
+          <Key>
+            <PropertyRef Name="SepetID" />
+          </Key>
+          <Property Name="SepetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunID" Type="int" />
+          <Property Name="UrunEklenen" Type="int" />
+          <Property Name="KullanıcıID" Type="int" />
+        </EntityType>
         <EntityType Name="TBL_SIPARIS">
           <Key>
             <PropertyRef Name="SiparisID" />
           </Key>
-          <Property Name="SiparisID" Type="int" Nullable="false" />
+          <Property Name="SiparisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiparisRestoranID" Type="int" />
           <Property Name="SiparisTarihi" Type="datetime" />
           <Property Name="SiparisTutar" Type="decimal" Precision="18" Scale="0" />
           <Property Name="SiparisUrunID" Type="int" />
-          <Property Name="SiparisKullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparisKullaniciID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SiparisDurum" Type="bit" />
-          <Property Name="SiparisBilgi" Type="varchar" MaxLength="250" />
+          <Property Name="SiparisBilgi" Type="nvarchar" MaxLength="250" />
+          <Property Name="SiparisAdet" Type="int" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -71,8 +71,33 @@
           <Property Name="UrunKategori" Type="int" />
           <Property Name="UrunAD" Type="nvarchar" MaxLength="50" />
           <Property Name="UrunResim" Type="nvarchar" MaxLength="150" />
+          <Property Name="UrunRestoran" Type="int" />
         </EntityType>
+        <Association Name="FK_TBL_SEPET_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="0..1" />
+          <End Role="TBL_SEPET" Type="Self.TBL_SEPET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SEPET">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisKullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI1">
           <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
           <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -120,17 +145,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="restoranBilgi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="UrunAdCek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="ModelUrunStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="TBL_ADMİN" EntityType="Self.TBL_ADMİN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_SEPET" EntityType="Self.TBL_SEPET" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_SEPET_TBL_MUSTERI" Association="Self.FK_TBL_SEPET_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SEPET" EntitySet="TBL_SEPET" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI1" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI1">
             <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
           </AssociationSet>
@@ -150,7 +181,15 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ModelUrun" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_ADMİN">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AdminSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="TBL_KATEGORI">
           <Key>
             <PropertyRef Name="KategoriID" />
@@ -168,7 +207,9 @@
           <Property Name="KullaniciAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="KullaniciSOYAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="KullaniciNick" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBL_SEPET" Relationship="Self.FK_TBL_SEPET_TBL_MUSTERI" FromRole="TBL_MUSTERI" ToRole="TBL_SEPET" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_MUSTERI" ToRole="TBL_SIPARIS" />
+          <NavigationProperty Name="TBL_SIPARIS1" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI1" FromRole="TBL_MUSTERI" ToRole="TBL_SIPARIS" />
         </EntityType>
         <EntityType Name="TBL_RESTORAN">
           <Key>
@@ -178,6 +219,16 @@
           <Property Name="RestoranAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="RestoranPUAN" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_RESTORAN" ToRole="TBL_SIPARIS" />
+        </EntityType>
+        <EntityType Name="TBL_SEPET">
+          <Key>
+            <PropertyRef Name="SepetID" />
+          </Key>
+          <Property Name="SepetID" Type="Int32" Nullable="false" />
+          <Property Name="UrunID" Type="Int32" />
+          <Property Name="UrunEklenen" Type="Int32" />
+          <Property Name="KullanıcıID" Type="Int32" />
+          <NavigationProperty Name="TBL_MUSTERI" Relationship="Self.FK_TBL_SEPET_TBL_MUSTERI" FromRole="TBL_SEPET" ToRole="TBL_MUSTERI" />
         </EntityType>
         <EntityType Name="TBL_SIPARIS">
           <Key>
@@ -189,11 +240,13 @@
           <Property Name="SiparisTutar" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SiparisUrunID" Type="Int32" />
           <Property Name="SiparisKullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparisDurum" Type="Boolean" />
+          <Property Name="SiparisBilgi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SiparisAdet" Type="Int32" />
           <NavigationProperty Name="TBL_MUSTERI" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI" FromRole="TBL_SIPARIS" ToRole="TBL_MUSTERI" />
+          <NavigationProperty Name="TBL_MUSTERI1" Relationship="Self.FK_TBL_SIPARIS_TBL_MUSTERI1" FromRole="TBL_SIPARIS" ToRole="TBL_MUSTERI" />
           <NavigationProperty Name="TBL_RESTORAN" Relationship="Self.FK_TBL_SIPARIS_TBL_RESTORAN" FromRole="TBL_SIPARIS" ToRole="TBL_RESTORAN" />
           <NavigationProperty Name="TBL_URUN" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_SIPARIS" ToRole="TBL_URUN" />
-          <Property Name="SiparisDurum" Type="Boolean" />
-          <Property Name="SiparisBilgi" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TBL_URUN">
           <Key>
@@ -203,10 +256,11 @@
           <Property Name="UrunFiyat" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="UrunStok" Type="Int32" />
           <Property Name="UrunKategori" Type="Int32" />
-          <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_URUN" ToRole="TBL_KATEGORI" />
-          <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_URUN" ToRole="TBL_SIPARIS" />
           <Property Name="UrunAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UrunResim" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UrunRestoran" Type="Int32" />
+          <NavigationProperty Name="TBL_KATEGORI" Relationship="Self.FK_TBL_URUN_TBL_KATEGORI" FromRole="TBL_URUN" ToRole="TBL_KATEGORI" />
+          <NavigationProperty Name="TBL_SIPARIS" Relationship="Self.FK_TBL_SIPARIS_TBL_URUN1" FromRole="TBL_URUN" ToRole="TBL_SIPARIS" />
         </EntityType>
         <Association Name="FK_TBL_URUN_TBL_KATEGORI">
           <End Role="TBL_KATEGORI" Type="Self.TBL_KATEGORI" Multiplicity="0..1" />
@@ -220,7 +274,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBL_SEPET_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="0..1" />
+          <End Role="TBL_SEPET" Type="Self.TBL_SEPET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SEPET">
+              <PropertyRef Name="KullanıcıID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI">
+          <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
+          <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_MUSTERI">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TBL_SIPARIS">
+              <PropertyRef Name="SiparisKullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_SIPARIS_TBL_MUSTERI1">
           <End Role="TBL_MUSTERI" Type="Self.TBL_MUSTERI" Multiplicity="1" />
           <End Role="TBL_SIPARIS" Type="Self.TBL_SIPARIS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -256,17 +334,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DbUrunEntity" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EntitiesUrun" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_ADMİN" EntityType="Self.TBL_ADMİN" />
           <EntitySet Name="TBL_KATEGORI" EntityType="Self.TBL_KATEGORI" />
           <EntitySet Name="TBL_MUSTERI" EntityType="Self.TBL_MUSTERI" />
           <EntitySet Name="TBL_RESTORAN" EntityType="Self.TBL_RESTORAN" />
+          <EntitySet Name="TBL_SEPET" EntityType="Self.TBL_SEPET" />
           <EntitySet Name="TBL_SIPARIS" EntityType="Self.TBL_SIPARIS" />
           <EntitySet Name="TBL_URUN" EntityType="Self.TBL_URUN" />
           <AssociationSet Name="FK_TBL_URUN_TBL_KATEGORI" Association="Self.FK_TBL_URUN_TBL_KATEGORI">
             <End Role="TBL_KATEGORI" EntitySet="TBL_KATEGORI" />
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBL_SEPET_TBL_MUSTERI" Association="Self.FK_TBL_SEPET_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SEPET" EntitySet="TBL_SEPET" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI">
+            <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
+            <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_SIPARIS_TBL_MUSTERI1" Association="Self.FK_TBL_SIPARIS_TBL_MUSTERI1">
             <End Role="TBL_MUSTERI" EntitySet="TBL_MUSTERI" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
           </AssociationSet>
@@ -278,43 +366,24 @@
             <End Role="TBL_URUN" EntitySet="TBL_URUN" />
             <End Role="TBL_SIPARIS" EntitySet="TBL_SIPARIS" />
           </AssociationSet>
-          <FunctionImport Name="UrunAdCek" ReturnType="Collection(String)" />
-          <EntitySet Name="TBL_ADMİN" EntityType="ModelUrun.TBL_ADMİN" />
-          <FunctionImport Name="restoranBilgi" ReturnType="Collection(ModelUrun.restoranBilgi_Result)" />
-          <EntitySet Name="sysdiagrams" EntityType="ModelUrun.sysdiagrams" />
         </EntityContainer>
-        <EntityType Name="TBL_ADMİN">
-          <Key>
-            <PropertyRef Name="AdminID" />
-          </Key>
-          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AdminAD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="AdminSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <ComplexType Name="restoranBilgi_Result">
-          <Property Type="Int32" Name="RestoranID" Nullable="false" />
-          <Property Type="String" Name="RestoranAD" Nullable="true" MaxLength="30" />
-          <Property Type="Decimal" Name="RestoranPUAN" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="Restoran_Kategori" Nullable="true" MaxLength="30" />
-        </ComplexType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelUrunStoreContainer" CdmEntityContainer="DbUrunEntity">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="EntitiesUrun">
+          <EntitySetMapping Name="TBL_ADMİN">
+            <EntityTypeMapping TypeName="Model.TBL_ADMİN">
+              <MappingFragment StoreEntitySet="TBL_ADMİN">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="AdminAD" ColumnName="AdminAD" />
+                <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_KATEGORI">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_KATEGORI">
+            <EntityTypeMapping TypeName="Model.TBL_KATEGORI">
               <MappingFragment StoreEntitySet="TBL_KATEGORI">
                 <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
                 <ScalarProperty Name="KategoriAD" ColumnName="KategoriAD" />
@@ -322,7 +391,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TBL_MUSTERI">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_MUSTERI">
+            <EntityTypeMapping TypeName="Model.TBL_MUSTERI">
               <MappingFragment StoreEntitySet="TBL_MUSTERI">
                 <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
                 <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
@@ -333,7 +402,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TBL_RESTORAN">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_RESTORAN">
+            <EntityTypeMapping TypeName="Model.TBL_RESTORAN">
               <MappingFragment StoreEntitySet="TBL_RESTORAN">
                 <ScalarProperty Name="RestoranID" ColumnName="RestoranID" />
                 <ScalarProperty Name="RestoranAD" ColumnName="RestoranAD" />
@@ -341,60 +410,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TBL_SEPET">
+            <EntityTypeMapping TypeName="Model.TBL_SEPET">
+              <MappingFragment StoreEntitySet="TBL_SEPET">
+                <ScalarProperty Name="SepetID" ColumnName="SepetID" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="UrunEklenen" ColumnName="UrunEklenen" />
+                <ScalarProperty Name="KullanıcıID" ColumnName="KullanıcıID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_SIPARIS">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_SIPARIS">
+            <EntityTypeMapping TypeName="Model.TBL_SIPARIS">
               <MappingFragment StoreEntitySet="TBL_SIPARIS">
-                <ScalarProperty Name="SiparisBilgi" ColumnName="SiparisBilgi" />
-                <ScalarProperty Name="SiparisDurum" ColumnName="SiparisDurum" />
                 <ScalarProperty Name="SiparisID" ColumnName="SiparisID" />
                 <ScalarProperty Name="SiparisRestoranID" ColumnName="SiparisRestoranID" />
                 <ScalarProperty Name="SiparisTarihi" ColumnName="SiparisTarihi" />
                 <ScalarProperty Name="SiparisTutar" ColumnName="SiparisTutar" />
                 <ScalarProperty Name="SiparisUrunID" ColumnName="SiparisUrunID" />
                 <ScalarProperty Name="SiparisKullaniciID" ColumnName="SiparisKullaniciID" />
+                <ScalarProperty Name="SiparisDurum" ColumnName="SiparisDurum" />
+                <ScalarProperty Name="SiparisBilgi" ColumnName="SiparisBilgi" />
+                <ScalarProperty Name="SiparisAdet" ColumnName="SiparisAdet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TBL_URUN">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_URUN">
+            <EntityTypeMapping TypeName="Model.TBL_URUN">
               <MappingFragment StoreEntitySet="TBL_URUN">
-                <ScalarProperty Name="UrunResim" ColumnName="UrunResim" />
-                <ScalarProperty Name="UrunAD" ColumnName="UrunAD" />
                 <ScalarProperty Name="UrunID" ColumnName="UrunID" />
                 <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
                 <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
                 <ScalarProperty Name="UrunKategori" ColumnName="UrunKategori" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="UrunAdCek" FunctionName="ModelUrun.Store.UrunAdCek" />
-          <EntitySetMapping Name="TBL_ADMİN">
-            <EntityTypeMapping TypeName="ModelUrun.TBL_ADMİN">
-              <MappingFragment StoreEntitySet="TBL_ADMİN">
-                <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
-                <ScalarProperty Name="AdminAD" ColumnName="AdminAD" />
-                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="restoranBilgi" FunctionName="ModelUrun.Store.restoranBilgi">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ModelUrun.restoranBilgi_Result">
-                <ScalarProperty Name="RestoranID" ColumnName="RestoranID" />
-                <ScalarProperty Name="RestoranAD" ColumnName="RestoranAD" />
-                <ScalarProperty Name="RestoranPUAN" ColumnName="RestoranPUAN" />
-                <ScalarProperty Name="Restoran_Kategori" ColumnName="Restoran Kategori" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ModelUrun.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="UrunAD" ColumnName="UrunAD" />
+                <ScalarProperty Name="UrunResim" ColumnName="UrunResim" />
+                <ScalarProperty Name="UrunRestoran" ColumnName="UrunRestoran" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

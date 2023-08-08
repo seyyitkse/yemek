@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b1d7b297d7fc4f31b3bb31f0274ca224" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.TBL_ADMİN" Width="1.5" PointX="5.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_KATEGORI" Width="1.5" PointX="1.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_MUSTERI" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_RESTORAN" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_SEPET" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_SIPARIS" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TBL_URUN" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_TBL_URUN_TBL_KATEGORI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TBL_SEPET_TBL_MUSTERI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TBL_SIPARIS_TBL_MUSTERI" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TBL_SIPARIS_TBL_MUSTERI1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TBL_SIPARIS_TBL_RESTORAN" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_TBL_SIPARIS_TBL_URUN1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
